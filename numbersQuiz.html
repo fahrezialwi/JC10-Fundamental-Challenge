@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    Input: <input type="number" id="inputNumber"> <br>
+    <input type="button" value="Lihat" onclick="display()">
+    <p id="display"></p>
+    <script>
+        let display = () => {
+            var inputNumber = parseInt(document.getElementById("inputNumber").value);
+            var numberToString = inputNumber.toString();
+            //console.log(numberToString);
+            var topLine = "";
+            var secondLine = "";
+            var thirdLine = "";
+            for(var i = 0; i < numberToString.length; ++i) {
+                console.log(numberToString.charAt(0));
+                if(numberToString.charAt(i) == '0') {
+                    topLine += " _ ";
+                    secondLine += "| |";
+                    thirdLine += "|_|";
+                }
+                else if(numberToString.charAt(i) == '1') {
+                    topLine += "   ";
+                    secondLine += "  |";
+                    thirdLine += "  |";
+                }
+                else if(numberToString.charAt(i) == '2') {
+                    topLine += " _ ";
+                    secondLine += " _|";
+                    thirdLine += "|_ ";
+                }
+                else if(numberToString.charAt(i) == '3') {
+                    topLine += " _ ";
+                    secondLine += " _|";
+                    thirdLine += " _|";
+                }
+                else if(numberToString.charAt(i) == '4') {
+                    topLine += "   ";
+                    secondLine += "|_|";
+                    thirdLine += "  |";
+                }
+                else if(numberToString.charAt(i) == '5') {
+                    topLine += " _ ";
+                    secondLine += "|_ ";
+                    thirdLine += " _|";
+                }
+                else if(numberToString.charAt(i) == '6') {
+                    topLine += " _ ";
+                    secondLine += "|_ ";
+                    thirdLine += "|_|";
+                }
+                else if(numberToString.charAt(i) == '7') {
+                    topLine += "__ ";
+                    secondLine += "  |";
+                    thirdLine += "  |";               }
+                else if(numberToString.charAt(i) == '8') {
+                    topLine += " _ ";
+                    secondLine += "|_|";
+                    thirdLine += "|_|";
+                }
+                else if(numberToString.charAt(i) == '9') {
+                    topLine += " _ ";
+                    secondLine += "|_|";
+                    thirdLine += " _|";
+                }
+            }
+            document.getElementById("display").innerHTML = "<pre>" + topLine + "<br>" + secondLine + "<br>" + thirdLine + "</pre>";
+        }
+    </script>
+</body>
+</html>

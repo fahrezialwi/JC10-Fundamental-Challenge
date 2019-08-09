@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p><b>Arah: <input type="radio" name="arah" value="kiri"> Kiri <input type="radio" name="arah" value="kanan"> Kanan</b></p>
+    <p><b>Berapa Kali <input type="number" id="numberInput"></b></p>
+    <p><input type="button" value="Putar" onclick="putar()"></p>
+    <p id="box"></p>
+    <style>
+        table, th, td {
+  border: 1px solid black;
+}
+    </style>
+    <script>
+        var topRow = [1, 2, 3, 4];
+        var secondRow = [5, 6, 7, 8];
+        var thirdRow = [9, 10, 11, 12];
+        var fourthRow = [13, 14, 15, 16];
+        let renderBox = () => {
+            console.log("hi");
+            var toReturn = `
+            <table>
+            <tr>
+            <td>${topRow[0]}</td>
+            <td>${topRow[1]}</td>
+            <td>${topRow[2]}</td>
+            <td>${topRow[3]}</td>
+            <td><input type='button' value="sort"  onclick="sortFirstRow()"></td>
+            </tr>
+            <tr>
+            <td>${secondRow[0]}</td>
+            <td>${secondRow[1]}</td>
+            <td>${secondRow[2]}</td>
+            <td>${secondRow[3]}</td>
+            <td><input type='button' value="sort"  onclick="sortSecondRow()"></td>
+            </tr>
+            <tr>
+            <td>${thirdRow[0]}</td>
+            <td>${thirdRow[1]}</td>
+            <td>${thirdRow[2]}</td>
+            <td>${thirdRow[3]}</td>
+            <td><input type= 'button' value="sort"  onclick="sortThirdRow()"></td>
+            </tr>
+            <tr>
+            <td>${fourthRow[0]}</td>
+            <td>${fourthRow[1]}</td>
+            <td>${fourthRow[2]}</td>
+            <td>${fourthRow[3]}</td>
+            <td><input type= 'button' value="sort"  onclick="sortFourthRow()"></td>
+            </tr>
+            <tr>
+            <td><input type='button' value="sort"  onclick="sortFirstColumn()"></td>
+            <td><input type='button' value="sort"  onclick="sortSecondColumn()" ></td>
+            <td><input type='button' value="sort"  onclick="sortThirdColumn()" ></td>
+            <td><input type='button' value="sort"  onclick="sortFourthColumn()" ></td>
+            <td></td>
+            </tr>
+            </table>`
+            document.getElementById('box').innerHTML = toReturn;
+        };
+        renderBox();
+        // let rotateKiri = () => {
+        //     var newTopRow = [topRow[0], secondRow[0], thirdRow[0], fourthRow[0]];
+        //     var newSecondRow = [topRow[1], secondRow[1], thirdRow[1], fourthRow[1]];
+        //     var newThirdRow = [topRow[2], secondRow[2], thirdRow[2], fourthRow[2]];
+        //     var newFourthRow = [topRow[3], secondRow[3], thirdRow[3], fourthRow[3]];
+        //     topRow = newTopRow;
+        //     secondRow = newSecondRow;
+        //     thirdRow = newThirdRow;
+        //     fourthRow = newFourthRow;
+        //     renderBox();
+
+        let rotateKanan = () => {
+            var newTopRow = [fourthRow[0], thirdRow[0], secondRow[0], topRow[0]];
+            var newSecondRow = [fourthRow[1], thirdRow[1], secondRow[1], topRow[1]];
+            var newThirdRow = [fourthRow[2], thirdRow[2], secondRow[2], topRow[2]];
+            var newFourthRow = [fourthRow[3], thirdRow[3], secondRow[3], topRow[3]];
+            topRow = newTopRow;
+            secondRow = newSecondRow;
+            thirdRow = newThirdRow;
+            fourthRow = newFourthRow;
+            renderBox();
+        }
+
+        let putar = () => {
+            var radioButton = document.querySelector('input[name=arah]:checked').value;
+            var putar = parseInt(document.getElementById('numberInput').value);
+            console.log(radioButton);
+            console.log(putar);
+            
+            if(putar > 0 && radioButton == "kiri") {
+                console.log("rotatekiri");
+                for(var i = 0; i < putar; ++i) {
+                    rotateKiri();
+                }
+            }
+            if(putar > 0 && radioButton == "kanan") {
+                console.log("rotatekanan");
+                for(var i = 0; i < putar; ++i) {
+                    rotateKanan();
+                }
+            }
+            renderBox();
+        }
+
+        let rotateKiri = () => {
+            var newTopRow = [topRow[3], secondRow[3], thirdRow[3], fourthRow[3]];
+            var newSecondRow = [topRow[2], secondRow[2], thirdRow[2], fourthRow[2]];
+            var newThirdRow = [topRow[1], secondRow[1], thirdRow[1], fourthRow[1]];
+            var newFourthRow = [topRow[0], secondRow[0], thirdRow[0], fourthRow[0]];
+            topRow = newTopRow;
+            secondRow = newSecondRow;
+            thirdRow = newThirdRow;
+            fourthRow = newFourthRow;
+            renderBox();
+        }
+        let sortFirstRowBoolean = true;
+        let sortFirstRow = () => {
+            var firstRowArray = [topRow[0], topRow[1], topRow[2], topRow[3]];
+            if(sortFirstRowBoolean) {
+                sortFirstRowBoolean = !sortFirstRowBoolean
+                topRow = firstRowArray.sort((a, b) => {
+                    return b - a;
+                })
+            }
+            else {
+                sortFirstRowBoolean = !sortFirstRowBoolean
+                topRow = firstRowArray.sort((a, b) => {
+                    return a - b;
+                })
+            }
+            renderBox();
+        };
+        let sortSecondRowBoolean = true;
+        let sortSecondRow = () => {
+            var secondRowArray = [secondRow[0], secondRow[1], secondRow[2], secondRow[3]];
+            if(sortSecondRowBoolean) {
+                sortSecondRowBoolean = !sortSecondRowBoolean
+                secondRow = secondRowArray.sort((a, b) => {
+                    return b - a;
+                })
+            }
+            else {
+                sortSecondRowBoolean = !sortSecondRowBoolean
+                secondRow = secondRowArray.sort((a, b) => {
+                    return a - b;
+                })
+            }
+            renderBox();
+        };
+        let sortThirdRowBoolean = true;
+        let sortThirdRow = () => {
+            var thirdRowArray = [thirdRow[0], thirdRow[1], thirdRow[2], thirdRow[3]];
+            if(sortThirdRowBoolean) {
+                sortThirdRowBoolean = !sortThirdRowBoolean
+                thirdRow = thirdRowArray.sort((a, b) => {
+                    return b - a;
+                })
+            }
+            else {
+                sortThirdRowBoolean = !sortThirdRowBoolean
+                thirdRow = thirdRowArray.sort((a, b) => {
+                    return a - b;
+                });
+            }
+            renderBox();
+        };
+        let sortFourthRowBoolean = true;
+        let sortFourthRow = () => {
+            var fourthRowArray = [fourthRow[0], fourthRow[1], fourthRow[2], fourthRow[3]];
+            if(sortFourthRowBoolean) {
+                sortFourthRowBoolean = !sortFourthRowBoolean
+                fourthRow = fourthRowArray.sort((a, b) => {
+                    return b - a;
+                })
+            }
+            else {
+                sortFourthRowBoolean = !sortFourthRowBoolean
+                fourthRow = fourthRowArray.sort((a, b) => {
+                    return a - b;
+                })
+            }
+            renderBox();
+        };
+        let sortFirstColumnBoolean = true;
+        let sortFirstColumn = () => {
+            var firstColumnArray = [topRow[0], secondRow[0], thirdRow[0], fourthRow[0]];
+            if(sortFirstColumnBoolean) {
+                sortFirstColumnBoolean = !sortFirstColumnBoolean;
+                var sortedFirstColumn = firstColumnArray.sort((a, b) => {
+                    return b - a;
+                });
+                topRow[0] = sortedFirstColumn[0];
+                secondRow[0] = sortedFirstColumn[1];
+                thirdRow[0] = sortedFirstColumn[2];
+                fourthRow[0] = sortedFirstColumn[3]
+            }
+            else {
+                sortFirstColumnBoolean = !sortFirstColumnBoolean;
+                var sortedFirstColumn = firstColumnArray.sort((a, b) => {
+                    return a - b;
+                });
+                topRow[0] = sortedFirstColumn[0];
+                secondRow[0] = sortedFirstColumn[1];
+                thirdRow[0] = sortedFirstColumn[2];
+                fourthRow[0] = sortedFirstColumn[3];
+            }
+            renderBox();
+        };
+        let sortSecondColumnBoolean = true;
+        let sortSecondColumn = () => {
+            var secondColumnArray = [topRow[1], secondRow[1], thirdRow[1], fourthRow[1]];
+            if(sortSecondColumnBoolean) {
+                sortSecondColumnBoolean = !sortSecondColumnBoolean;
+                var sortedSecondColumn = secondColumnArray.sort((a, b) => {
+                    return b - a;
+                });
+                topRow[1] = sortedSecondColumn[0];
+                secondRow[1] = sortedSecondColumn[1];
+                thirdRow[1] = sortedSecondColumn[2];
+                fourthRow[1] = sortedSecondColumn[3];
+            }
+            else {
+                sortSecondColumnBoolean = !sortSecondColumnBoolean;
+                var sortedSecondColumn = secondColumnArray.sort((a, b) => {
+                    return a - b;
+                });
+                topRow[1] = sortedSecondColumn[0];
+                secondRow[1] = sortedSecondColumn[1];
+                thirdRow[1] = sortedSecondColumn[2];
+                fourthRow[1] = sortedSecondColumn[3];
+            }
+            renderBox()
+        };
+        let sortThirdColumnBoolean = true;
+        let sortThirdColumn = () => {
+            var thirdColumnArray = [topRow[2], secondRow[2], thirdRow[2], fourthRow[2]];
+            if(sortThirdColumnBoolean) {
+                sortThirdColumnBoolean = !sortThirdColumnBoolean;
+                var sortedThirdColumn = thirdColumnArray.sort((a, b) => {
+                    return b - a;
+                });
+                topRow[2] = sortedThirdColumn[0];
+                secondRow[2] = sortedThirdColumn[1];
+                thirdRow[2] = sortedThirdColumn[2];
+                fourthRow[2] = sortedThirdColumn[3];
+            }
+            else {
+                sortThirdColumnBoolean = !sortThirdColumnBoolean;
+                var sortedThirdColumn = thirdColumnArray.sort((a, b) => {
+                    return a - b;
+                });
+                topRow[2] = sortedThirdColumn[0];
+                secondRow[2] = sortedThirdColumn[1];
+                thirdRow[2] = sortedThirdColumn[2];
+                fourthRow[2] = sortedThirdColumn[3];
+            }
+            renderBox()
+        };
+        let sortFourthColumnBoolean = true;
+        let sortFourthColumn = () => {
+            var fourthColumnArray = [topRow[2], secondRow[2], thirdRow[2], fourthRow[2]];
+            if(sortFourthColumnBoolean) {
+                sortFourthColumnBoolean = !sortFourthColumnBoolean;
+                var sortedFourthColumn = fourthColumnArray.sort((a, b) => {
+                    return b - a;
+                });
+                topRow[3] = sortedFourthColumn[0];
+                secondRow[3] = sortedFourthColumn[1];
+                thirdRow[3] = sortedFourthColumn[2];
+                fourthRow[3] = sortedFourthColumn[3];
+            }
+            else {
+                sortFourthColumnBoolean = !sortFourthColumnBoolean;
+                var sortedFourthColumn = fourthColumnArray.sort((a, b) => {
+                    return a - b;
+                });
+                topRow[3] = sortedFourthColumn[0];
+                secondRow[3] = sortedFourthColumn[1];
+                thirdRow[3] = sortedFourthColumn[2];
+                fourthRow[3] = sortedFourthColumn[3];
+            }
+            renderBox()
+        };
+
+
+    </script>
+    
+</body>
+</html>
