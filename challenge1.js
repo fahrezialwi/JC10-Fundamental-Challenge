@@ -5,136 +5,79 @@ let arrayAngka = [
     [13,14,15,16]
 ]
 
-var arah = document.querySelector("input[name=arah]:checked").value
-console.log(arah)
+let asc = (a, b) => {
+        return a-b
+}
+
+let desc = (a, b) => {
+    return b-a
+}
 
 var toggle = 1
-
-function funSort(selection) {
-    // var x = document.getElementById("myDIV");
+let funSort = (selection) => {
     if (toggle == 1) {
-        arrayAngka[selection].sort((a, b) => {
-            return b-a
-        })
-    
+        arrayAngka[selection].sort(desc)
         funTabel(arrayAngka)
-
-      toggle = 0
-      
-    } else {
-        arrayAngka[selection].sort((a, b) => {
-            return a-b
-        })
-    
+        toggle = 0
+    } 
+    else {
+        arrayAngka[selection].sort(asc)
         funTabel(arrayAngka)
-      toggle = 1
-     
+        toggle = 1
     }
   }
 
-
-
-
-
-// let funSort_V0 = (selection) => {
-
-//     var sortedArray = arrayAngka[selection[0]].sort(funSort_V0(a,b){
-//         if(a[0] == b[0]){
-//             return a[1] - b[1]
-//         }
-//         return b[0] - a[0]
-//     })
-
-
-//     // arrayAngka[selection].sort([])
-
-//     funTabel(arrayAngka)
-// }
-
-let funSort_V1 = (selection) => {
-    // arrayAngka[selection].sort(funShort_V1(a,b) => {
-    //     return b[[1]] - a[[1]]
-    // })
-    // arrayAngka[selection].sort([])
-
-    funTabel(arrayAngka)
-}
-
-let funSort_V2 = (selection) => {
-    arrayAngka[selection].sort((a,b) => {
-        return b[[2]] - a[[2]]
-    })
-
-    // arrayAngka
-    // arrayAngka[selection].sort([])
-
-    funTabel(arrayAngka)
-}
-
-let funSort_V3 = (selection) => {
-    arrayAngka[selection].sort((a,b) => {
-        return [b[3]] - a[[3]]
-    })
-    // arrayAngka[selection].sort([])
-
-    funTabel(arrayAngka)
-}
-
-
-// var funPutar = () => {
+var toggleVertical = 1
+let funSortVertical = (selection) => {
+    if (toggleVertical == 1) {
+        var arrayBaru = arrayAngka.map((val) => {
+            return val[selection]
+        })
+        arrayBaru.sort(desc)
     
-//     let hasil1,hasil2,hasil3,hasil4 = []
-
-//     hasil1= arrayAngka.map((val,index) => {
-//          return val[0]
-//     })
-
-//     hasil2 = arrayAngka.map((val,index) => {
-//         return val[1]
-//    })
-
-//     hasil1= arrayAngka.map((val,index) => {
-//     return val[2]
-//     })
-
-//     hasil2 = arrayAngka.map((val,index) => {
-//     return val[3]
-//     })
-
-//     console.log(hasil1,hasil2,hasil3,hasil4)
-
-//     // funTabel(hasilPutarKanan)
-
-
-// }
-
-var funPutar = () => {
-    var arrayBaru = arrayAngka[0].map((col, i) => arrayAngka.map(row => row[i]));
-    return arrayBaru
+        for (var i = 0 ; i<4 ; i++){
+            arrayAngka[i][selection] = arrayBaru[i]
+        }
+        funTabel(arrayAngka)
+        toggleVertical = 0
+    }
+    else {
+        var arrayBaru = arrayAngka.map((val) => {
+            return val[selection]
+        })
+        arrayBaru.sort(asc)
+    
+        for (var i = 0 ; i<4 ; i++){
+            arrayAngka[i][selection] = arrayBaru[i]
+        }
+        funTabel(arrayAngka)
+        toggleVertical = 1
+    }
 }
 
-console.log(funPutar())
+let rotate = (matrix) => {          // function statement
+    const N = matrix.length - 1;   // use a constant
+    // use arrow functions and nested map;
+    const result = matrix.map((row, i) => 
+         row.map((val, j) => matrix[N - j][i])
+    );
+    matrix.length = 0;       // hold original array reference
+    matrix.push(...result);  // Spread operator
 
-function transposeArray(array, arrayLength){
-    var newArray = [];
-    for(var i = 0; i < array.length; i++){
-        newArray.push([]);
-    };
-
-    for(var i = 0; i < array.length; i++){
-        for(var j = 0; j < arrayLength; j++){
-            newArray[j].push(array[i][j]);
-        };
-    };
-
-    return newArray;
+    funTabel(arrayAngka)
 }
 
-console.log(transposeArray(arrayAngka,4))
+let rotateTimes = () => {
+    var banyak = document.getElementById("number").value
+    for (var i = 0; i<banyak ; i++){
+        rotate(arrayAngka)
+    }
+}
+
+// var arah = document.querySelector("input[name=arah]:checked").value
 
 let funTabel = (array) => {
     let listAngka = array.map((val, index) => {
-
         return `   
         <tr>
             <td>${val[0]}</td>
@@ -142,22 +85,19 @@ let funTabel = (array) => {
             <td>${val[2]}</td>
             <td>${val[3]}</td>
             <td><button type="button" onclick=funSort(${index})>Sort</button></td>
-        </tr> 
-
-        `
+        </tr> `
     })
 
     listAngka.push(`<tr>
-                    <td><button type="button" onclick=funSort_V0()>Sort</button></td>
-                    <td><button type="button" onclick=funSort_V1()>Sort</button></td>
-                    <td><button type="button" onclick=funSort_V2()>Sort</button></td>
-                    <td><button type="button" onclick=funSort_V3()>Sort</button></td>
+                    <td><button type="button" onclick=funSortVertical(0)>Sort</button></td>
+                    <td><button type="button" onclick=funSortVertical(1)>Sort</button></td>
+                    <td><button type="button" onclick=funSortVertical(2)>Sort</button></td>
+                    <td><button type="button" onclick=funSortVertical(3)>Sort</button></td>
                     <td></td>
                     </tr> 
                     `)
 
     document.getElementById('here').innerHTML = listAngka.join('');
-  
 }
 
 funTabel(arrayAngka)
