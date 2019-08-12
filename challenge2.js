@@ -21,6 +21,8 @@ let display = () => {
             char += '<span>' + " _ " + '<br>' + "|_|" + '<br>' + "|_|" + '</span>'
         } else if (inputNumber.charAt(i) == '9') {
             char += '<span>' + " _ " + '<br>' + "|_|" + '<br>' + " _|" + '</span>'
+        } else if (inputNumber.charAt(i) == '0') {
+            char += '<span>' + " _ " + '<br>' + "| |" + '<br>' + "|_|" + '</span>'
         }
     }
     document.getElementById("display").innerHTML = `<pre>${char}</pre>`
