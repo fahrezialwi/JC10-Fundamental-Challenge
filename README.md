@@ -1,2 +1,3 @@
-# JC10-Frontend
+# JC10 Fundamental Challenge
+
 Purwadhika fundamental challenge
